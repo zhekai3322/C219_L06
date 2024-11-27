@@ -1,4 +1,4 @@
-// L7 App.js
+// App.js
 import React, { useState } from 'react';
 import Form from './Form.js';
 import PackingList from './PackingList.js';
@@ -53,6 +53,7 @@ function App() {
         return items.slice().sort((a, b) => a.quantity - b.quantity);
       case 'alphabetical':
         return items.slice().sort((a, b) => a.description.localeCompare(b.description));
+        // return items.slice().sort((a, b) => b.description.localeCompare(a.description));
       default:
         return items;
     }
@@ -68,17 +69,18 @@ function App() {
         setQuantity={setQuantity}
         handleAddItem={handleAddItem}
       />
+      
+      <PackingList
+        items={sortedItems()}
+        onUpdateItem={handleUpdateItem}
+        onDeleteItem={handleDeleteItem}
+      />
       <div className="sort-and-clear">
         <button onClick={() => handleSortItems('inputOrder')}>Sort by Input Order</button>
         <button onClick={() => handleSortItems('quantity')}>Sort by Quantity</button>
         <button onClick={() => handleSortItems('alphabetical')}>Sort by Alphabetical</button>
         <button onClick={handleClearItems}>Clear All Items</button>
       </div>
-      <PackingList
-        items={sortedItems()}
-        onUpdateItem={handleUpdateItem}
-        onDeleteItem={handleDeleteItem}
-      />
       <Stats items={items} />
     </div>
   );
