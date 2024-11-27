@@ -1,4 +1,4 @@
-// App.js
+// L7 App.js
 import React, { useState } from 'react';
 import Form from './Form.js';
 import PackingList from './PackingList.js';
@@ -49,10 +49,10 @@ function App() {
     switch (sortOrder) {
       case 'inputOrder':
         return items;
-      case 'description':
+      case 'quantity':
+        return items.slice().sort((a, b) => a.quantity - b.quantity);
+      case 'alphabetical':
         return items.slice().sort((a, b) => a.description.localeCompare(b.description));
-      case 'packedStatus':
-        return items.slice().sort((a, b) => (a.packed === b.packed) ? 0 : (a.packed ? -1 : 1));
       default:
         return items;
     }
@@ -70,8 +70,8 @@ function App() {
       />
       <div className="sort-and-clear">
         <button onClick={() => handleSortItems('inputOrder')}>Sort by Input Order</button>
-        <button onClick={() => handleSortItems('description')}>Sort by Description</button>
-        <button onClick={() => handleSortItems('packedStatus')}>Sort by Packed Status</button>
+        <button onClick={() => handleSortItems('quantity')}>Sort by Quantity</button>
+        <button onClick={() => handleSortItems('alphabetical')}>Sort by Alphabetical</button>
         <button onClick={handleClearItems}>Clear All Items</button>
       </div>
       <PackingList
